@@ -1,0 +1,23 @@
+<h1 mat-dialog-title> <mat-icon></mat-icon>Registrar Área | Talhão</h1>
+<div mat-dialog-content>
+  <mat-dialog-content [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Descricao Talhão" formControlName="descricao">
+        <mat-error *ngIf="form.get('descricao')?.getError && form.get('descricao')?.dirty || (form.get('descricao')?.touched)">
+          Campo não pode ficar vazio!
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Área" type="number" formControlName="area">
+        <mat-error *ngIf="form.get('area')?.getError && form.get('area')?.dirty || (form.get('area')?.touched)">
+          Campo não pode ficar vazio!
+        </mat-error>
+    </mat-form-field>
+  
+</mat-dialog-content>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-button cdkFocusInitial mat-flat-button color="primary" (click)="salvarTalhao()">Salvar</button>
+</div>

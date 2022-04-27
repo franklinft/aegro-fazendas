@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>Fazenda {{ this.fazenda.descricao }} | Atividades - Total Produção: {{producaoByFazenda}}</h1>
+<h2 class="color-red" *ngIf="this.fazenda.talhoes == null || this.fazenda.talhoes == undefined">Adicione um talhão para poder lançar as atividades</h2>
+<div mat-dialog-content>
+    <mat-card *ngFor="let talhao of fazenda.talhoes; index as i" class="cards-list">
+        <mat-card-header>
+          <mat-card-title>Talhão - {{talhao.descricao}}</mat-card-title>
+          <button (click)="obterTalhao(talhao, i)" class="btn-talhao" mat-button><mat-icon [color]="'primary'">edit</mat-icon>
+          </button>
+          <mat-card-subtitle>{{talhao.area}} - Hectares</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="card-mat-content" [class.none]="!exibirForm" [class.none]="i != talhaoSelecionado">
+            <h3 class="title-content">Operações realizadas</h3>
+            <hr>
+            <div class="table-container">
+              <table mat-table [dataSource]="operacoesFiltradas" class="mat-elevation-z0">
+                <ng-container matColumnDef="operacao">
+                  <th mat-header-cell *matHeaderCellDef> Operação </th>
+                  <td mat-cell *matCellDef="let op"> {{op.operacao}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dataInicio">
+                  <th mat-header-cell *matHeaderCellDef> Data Inicio </th>
+                  <td mat-cell *matCellDef="let op"> {{op.dataInicio}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="insumo">
+                  <th mat-header-cell *matHeaderCellDef> Insumo </th>
+                  <td mat-cell *matCellDef="let op"> {{op.insumo}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <h3 class="title-content color-red" *ngIf="operacoesFiltradas.length === 0">Nenhuma operação realizada</h3>
+            </div>
+          </div>
+          <div class="card-mat-content"
+            [class.none]="!exibirForm" 
+            [class.none]="i != talhaoSelecionado">
+            <h3 class="title-content color-green"> Total de produção/talhão: {{this.producaoByTalhao}}</h3>
+            <hr>
+          </div>
+          <div class="card-mat-content" [class.none]="!exibirForm" [class.none]="i != talhaoSelecionado">
+            <h3 class="title-content">Registrar operação</h3>
+            <hr>
+            <mat-dialog-content [formGroup]="form">
+              <mat-form-field appearance="outline">
+                  <input matInput placeholder="Operação" formControlName="operacao">
+                  <mat-error *ngIf="form.get('operacao')?.getError && form.get('operacao')?.dirty || (form.get('operacao')?.touched)">
+                    Campo não pode ficar vazio!
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Insumo" formControlName="insumo">
+                <mat-error *ngIf="form.get('insumo')?.getError && form.get('insumo')?.dirty || (form.get('insumo')?.touched)">
+                  Campo não pode ficar vazio!
+                </mat-error>
+              </mat-form-field>
+          
+              <mat-form-field appearance="outline">
+                <input matInput type="date" formControlName="dataInicio">
+                <mat-error *ngIf="form.get('dataInicio')?.getError && form.get('dataInicio')?.dirty || (form.get('dataInicio')?.touched)">
+                  Campo não pode ficar vazio!
+                </mat-error>
+              </mat-form-field>
+          
+              <mat-form-field appearance="outline">
+                <input matInput type="date" formControlName="dataTermino">
+                <mat-error *ngIf="form.get('dataTermino')?.getError && form.get('dataTermino')?.dirty || (form.get('dataTermino')?.touched)">
+                  Campo não pode ficar vazio!
+                </mat-error>
+              </mat-form-field>
+            </mat-dialog-content>
+            <div mat-dialog-actions>
+              <button mat-button (click)="fechar()">Cancelar</button>
+              <button mat-button cdkFocusInitial mat-flat-button color="primary" (click)="salvarAtividade()">Salvar</button>
+            </div>
+          </div>
+        </mat-card-content>
+    </mat-card>
+</div>

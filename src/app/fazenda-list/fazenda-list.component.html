@@ -1,0 +1,56 @@
+<div class="table-container">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef> Fazenda </th>
+          <td mat-cell *matCellDef="let fazenda"> {{fazenda.descricao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hectares">
+          <th mat-header-cell *matHeaderCellDef> Hectares </th>
+          <td mat-cell *matCellDef="let fazenda"> {{fazenda.hectares}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="localizacao">
+          <th mat-header-cell *matHeaderCellDef> Localização </th>
+          <td mat-cell *matCellDef="let fazenda"> {{fazenda.localizacao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addAreaTalhao">
+          <th mat-header-cell *matHeaderCellDef> Adicionar Talhão </th>
+          <td mat-cell class="td-talhoes" *matCellDef="let fazenda">
+            <button
+              mat-flat-button
+              matTooltipPosition="right"
+              matTooltip="Registrar informações"
+              aria-label="Button that displays a tooltip when focused or hovered over"
+              (click)="criarTalhaoDialog(fazenda)">
+              <mat-icon color="primary">add_circle_outline</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="atividades">
+          <th mat-header-cell *matHeaderCellDef> Atividades</th>
+          <td mat-cell *matCellDef="let fazenda"> 
+              <button
+               mat-flat-button
+               matTooltipPosition="right"
+               matTooltip="Registrar informações"
+               aria-label="Button that displays a tooltip when focused or hovered over"
+               (click)="criarRegAtividadesDialog(fazenda)">
+               <mat-icon color="primary">checklist_rtl</mat-icon>
+              </button>
+          </td>
+        </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="container-button-floating">
+      <button mat-fab color="primary" (click)="criarFazendaDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+ </div>

@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Cadastrar fazenda</h1>
+<div mat-dialog-content>
+  <mat-dialog-content [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Descricao Fazenda" formControlName="descricao">
+        <mat-error *ngIf="form.get('descricao')?.getError && form.get('descricao')?.dirty || (form.get('descricao')?.touched)">
+          Campo não pode ficar vazio!
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Hectares" type="number" formControlName="hectares">
+      <mat-error *ngIf="form.get('hectares')?.getError && form.get('hectares')?.dirty || (form.get('hectares')?.touched)">
+        Campo não pode ficar vazio!
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Localizacao" formControlName="localizacao">
+      <mat-error *ngIf="form.get('localizacao')?.getError && form.get('localizacao')?.dirty || (form.get('localizacao')?.touched)">
+        Campo não pode ficar vazio!
+      </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button cdkFocusInitial mat-flat-button color="primary" (click)="save()">Salvar</button>
+</div>
